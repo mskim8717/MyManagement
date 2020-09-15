@@ -19,6 +19,15 @@ class IntroPageCell: UICollectionViewCell {
         return imgView
     }()
     
+    let descriptionView: UITextView = {
+        let descText = UITextView()
+        descText.translatesAutoresizingMaskIntoConstraints = false
+        descText.contentMode = .scaleAspectFit
+        descText.textAlignment = .center
+        descText.font = .systemFont(ofSize: 30)
+        return descText
+    }()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
 
@@ -44,6 +53,13 @@ class IntroPageCell: UICollectionViewCell {
         imageView.centerXAnchor.constraint(equalTo: ViewContainer.centerXAnchor).isActive = true
         imageView.centerYAnchor.constraint(equalTo: ViewContainer.centerYAnchor).isActive = true
         imageView.heightAnchor.constraint(equalTo: ViewContainer.heightAnchor, multiplier: 0.5).isActive = true
+        
+        ViewContainer.addSubview(descriptionView)
+        descriptionView.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 30).isActive = true
+        descriptionView.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
+        descriptionView.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
+        descriptionView.heightAnchor.constraint(equalTo: ViewContainer.heightAnchor, multiplier: 0.5).isActive = true
+        
     }
     
     required init?(coder: NSCoder) {

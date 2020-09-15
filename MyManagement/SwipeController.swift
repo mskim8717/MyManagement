@@ -11,6 +11,7 @@ import UIKit
 class SwipeController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     
     let introImages = ["intro1", "intro2", "intro3"]
+    let introDescription = ["Hello 1!", "Hello 2!", "Hello 3!"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,6 +22,11 @@ class SwipeController: UICollectionViewController, UICollectionViewDelegateFlowL
         collectionView.isPagingEnabled = true
         
         setupBottomLayout()
+    }
+    
+    override func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+        let page = Int(targetContentOffset.pointee.x / view.frame.width)
+        pageControl.currentPage = page
     }
     
     private func setupBottomLayout() {
@@ -59,10 +65,12 @@ class SwipeController: UICollectionViewController, UICollectionViewDelegateFlowL
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! IntroPageCell
-        print("index:", indexPath.item)
+        //print("index:", indexPath.item)
         let image = introImages[indexPath.item]
-        // pageControl.currentPage = pageControl.currentPage + 1
         cell.imageView.image = UIImage(named: image)
+        
+        let description = introDescription[indexPath.item]
+        cell.descriptionView.text = description as? String
         
         return cell
     }
